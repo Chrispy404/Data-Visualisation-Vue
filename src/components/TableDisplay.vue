@@ -1,5 +1,7 @@
 <template>
 	<div>
+		<chartjs-doughnut v-bind:labels="labels" v-bind:datasets="dataSets" v-bind:option="option"></chartjs-doughnut>
+
 		<h3>
 			filter by suburb
 			<input type="search" v-model="search" />
@@ -8,9 +10,10 @@
 		<p>Displaying: {{displayMax}}</p>
 		<p>
 			Display all?
-			<input type="checkbox" @click="displayMax = data.length" />
+			<input type="checkbox" @click="displayMax = filteredSearch.length" />
 		</p>
 		<table>
+			<!-- clickable headers for sorting -->
 			<th @click="sort('SUBURB')">Suburb</th>
 			<th @click="sort('POSTCODE')">Postcode</th>
 			<th @click="sort('STATE')">State</th>
@@ -37,10 +40,27 @@ export default {
 	props: ["data"],
 	data() {
 		return {
+			// Table
 			displayMax: 50,
 			search: "",
 			currentSort: "SUBURB",
-			currentSortDir: "ASC"
+			currentSortDir: "ASC",
+
+			// Charts
+			labels: ["Apples", "Bananas", "Grapes"],
+			dataSets: [
+				{
+					data: [20, 30, 40],
+					backgroundColor: ["Red", "Yellow", "Purple"]
+				}
+			],
+			option: {
+				title: {
+					display: true,
+					position: "bottom",
+					text: "Fruits"
+				}
+			}
 		};
 	},
 	methods: {
@@ -56,6 +76,7 @@ export default {
 	computed: {
 		filteredSearch: function() {
 			return this.sortedObject.filter(object => {
+				// return where data matchs filter
 				return object.SUBURB.toLowerCase().match(this.search);
 			});
 		},

@@ -10,7 +10,7 @@
 			Display all?
 			<input type="checkbox" @click="displayMax = filteredSearch.length" />
 		</p>
-		<table>
+		<table class="center">
 			<!-- clickable headers for sorting -->
 			<th @click="sort('SUBURB')">Suburb</th>
 			<th @click="sort('POSTCODE')">Postcode</th>
@@ -89,3 +89,10 @@ export default {
 	}
 };
 </script>
+
+<style scoped>
+table.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>

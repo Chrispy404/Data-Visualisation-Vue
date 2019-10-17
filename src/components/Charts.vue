@@ -130,18 +130,13 @@ export default {
 			bgColor: "#81894e",
 			beginZero: true,
 			borderColor: "#81894e",
-			btn: [
-				{ label: "state", value: "state" },
-				{ label: "This Week", value: "week" }
-			],
+			btn: [{ label: "state", value: "state" }],
 			lineData: {
-				state: [0, 0, 0, 0, 0, 0, 0, 0],
-				week: [12, 14, 16, 18, 11, 13, 15]
+				state: [0, 0, 0, 0, 0, 0, 0, 0]
 			},
 			dataLabel: "suburbs",
 			labels: {
-				state: [],
-				week: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+				state: []
 			},
 			radio: "state"
 		};

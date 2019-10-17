@@ -1,5 +1,7 @@
 <template>
 	<div id="app">
+		<h2>Data Visualisation with Vue</h2>
+
 		<input type="file" id="csvdata" @change="loadTextFromFile" />
 		<button v-if="data != null" type="button" v-on:click="toggleTable">Show Data</button>
 		<TableDisplay v-if="showTable" v-bind:data="data"></TableDisplay>

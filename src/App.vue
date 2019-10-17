@@ -2,8 +2,8 @@
 	<div id="app">
 		<input type="file" id="csvdata" @change="loadTextFromFile" />
 		<button v-if="data != null" type="button" v-on:click="toggleTable">Show Data</button>
-		<Charts v-if="showTable" v-bind:data="data"></Charts>
 		<TableDisplay v-if="showTable" v-bind:data="data"></TableDisplay>
+		<Charts v-if="showTable" v-bind:data="data"></Charts>
 	</div>
 </template>
 

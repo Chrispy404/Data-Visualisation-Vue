@@ -19,14 +19,23 @@
 			<th @click="sort('PO BOX')">Post box</th>
 			<th @click="sort('LONG')">Longitude</th>
 			<th @click="sort('LAT\r\r')">Latitude</th>
+			<th>Edit</th>
 			<tr v-for="object in filteredSearch.slice(0,displayMax)">
-				<td>{{object.SUBURB}}</td>
-				<td>{{object.POSTCODE}}</td>
-				<td>{{object.STATE}}</td>
-				<td>{{object.COUNTRY}}</td>
-				<td>{{object['PO BOX']}}</td>
-				<td>{{object.LONG}}</td>
-				<td>{{object['LAT\r\r']}}</td>
+				<td v-if="!edit">{{object.SUBURB}}</td>
+				<td v-if="!edit">{{object.POSTCODE}}</td>
+				<td v-if="!edit">{{object.STATE}}</td>
+				<td v-if="!edit">{{object.COUNTRY}}</td>
+				<td v-if="!edit">{{object['PO BOX']}}</td>
+				<td v-if="!edit">{{object.LONG}}</td>
+				<td v-if="!edit">{{object['LAT\r\r']}}</td>
+				<input v-if="edit" v-model="object.SUBURB" placeholder="object.SUBURB" />
+				<input v-if="edit" v-model="object.POSTCODE" placeholder="object.POSTCODE" />
+				<input v-if="edit" v-model="object.STATE" placeholder="object.STATE" />
+				<input v-if="edit" v-model="object.COUNTRY" placeholder="object.COUNTRY" />
+				<input v-if="edit" v-model="object['PO BOX']" placeholder="object['PO BOX']" />
+				<input v-if="edit" v-model="object.LONG" placeholder="object.LONG" />
+				<input v-if="edit" v-model="object['LAT\r\r']" placeholder="object['LAT\r\r']" />
+				<td v-on:click="editRow">Edit</td>
 			</tr>
 		</table>
 	</div>
@@ -39,6 +48,7 @@ export default {
 	data() {
 		return {
 			// Table
+			edit: false,
 			displayMax: 50,
 			search: "",
 			currentSort: "SUBURB",
@@ -53,6 +63,9 @@ export default {
 					this.currentSortDir === "asc" ? "desc" : "asc";
 			}
 			this.currentSort = s;
+		},
+		editRow() {
+			this.edit = !this.edit;
 		}
 	},
 	computed: {

@@ -1,16 +1,9 @@
 <template>
 	<div>
-		<button type="button" v-on:click="togglePie">Show Pie Chart</button>
-		<button type="button" v-on:click="toggleBar">Show Bar Graph</button>
-		<chartjs-doughnut
-			v-if="showPie"
-			v-bind:labels="barLabels"
-			v-bind:datasets="dataSets"
-			v-bind:option="option"
-		></chartjs-doughnut>
+		<chartjs-doughnut v-bind:labels="barLabels" v-bind:datasets="dataSets" v-bind:option="option"></chartjs-doughnut>
 
 		<!-- Bar graph -->
-		<div class="card" v-if="showBar">
+		<div class="card">
 			<div class="card-body">
 				<h2 class="card-title">Bar</h2>
 			</div>
@@ -97,7 +90,6 @@ export default {
 	data() {
 		return {
 			// Pie
-			showPie: false,
 			barLabels: [],
 			dataSets: [
 				{
@@ -123,7 +115,6 @@ export default {
 			},
 
 			// Bar
-			showBar: false,
 			beginZero: true,
 			barLabels: [],
 			types: [

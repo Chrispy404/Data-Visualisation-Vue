@@ -9,6 +9,7 @@
 			v-bind:option="option"
 		></chartjs-doughnut>
 
+		<!-- Bar graph -->
 		<div class="card" v-if="showBar">
 			<div class="card-body">
 				<h2 class="card-title">Bar</h2>
@@ -31,6 +32,62 @@
 				/>
 			</div>
 		</div>
+
+		<!-- line graph -->
+		<div class="card">
+			<div class="card-body">
+				<h2 class="card-title">Line</h2>
+
+				<div class="btn-group btn-group-toggle">
+					<label
+						v-for="(item, index) in btn"
+						:key="index"
+						:class="{ active: item.value == radio }"
+						class="btn btn-success"
+					>
+						<input v-model="radio" :name="dataLabel" :value="item.value" type="radio" />
+						{{ item.label }}
+					</label>
+				</div>
+			</div>
+
+			<div class="card-img-bottom">
+				<chartjs-line
+					:backgroundcolor="bgColor"
+					:beginzero="beginZero"
+					:bind="true"
+					:bordercolor="borderColor"
+					:data="lineData[radio]"
+					:datalabel="dataLabel"
+					:labels="labels[radio]"
+				/>
+			</div>
+		</div>
+
+		<!-- multiple -->
+		<canvas id="mix2" count="2" />
+		<chartjs-line
+			:backgroundcolor="bgColor"
+			:beginzero="beginZero"
+			:bind="true"
+			:bordercolor="borderColor"
+			:data="lineData[radio]"
+			:datalabel="dataLabel"
+			:labels="labels[radio]"
+			target="mix2"
+		/>
+		<chartjs-bar
+			v-for="(item, index) in types"
+			:key="index"
+			:backgroundcolor="item.bgColor"
+			:beginzero="beginZero"
+			:bind="true"
+			:bordercolor="item.borderColor"
+			:data="item.data"
+			:datalabel="item.dataLabel"
+			:labels="barLabels"
+			target="mix2"
+		/>
 	</div>
 </template>
 
@@ -76,7 +133,26 @@ export default {
 					data: [0, 0, 0, 0, 0, 0, 0, 0],
 					dataLabel: "Suburbs"
 				}
-			]
+			],
+
+			// line
+			bgColor: "#81894e",
+			beginZero: true,
+			borderColor: "#81894e",
+			btn: [
+				{ label: "state", value: "state" },
+				{ label: "This Week", value: "week" }
+			],
+			lineData: {
+				state: [0, 0, 0, 0, 0, 0, 0, 0],
+				week: [12, 14, 16, 18, 11, 13, 15]
+			},
+			dataLabel: "suburbs",
+			labels: {
+				state: [],
+				week: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+			},
+			radio: "state"
 		};
 	},
 	methods: {
@@ -96,6 +172,7 @@ export default {
 			state.push(this.data[i].STATE);
 		}
 		this.barLabels = [...new Set(state)];
+		this.labels.state = [...new Set(state)];
 		console.log("unique states " + this.barLabels);
 
 		let totals = [0, 0, 0, 0, 0, 0, 0, 0];
@@ -112,6 +189,7 @@ export default {
 		console.log("totals " + totals);
 		this.types[0].data = totals;
 		this.dataSets[0].data = totals;
+		this.lineData.state = totals;
 	}
 };
 </script>

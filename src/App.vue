@@ -1,19 +1,21 @@
 <template>
 	<div id="app">
 		<input type="file" id="csvdata" @change="loadTextFromFile" />
-		<button v-if="data != null" type="button" v-on:click="toggleTable">Show Table</button>
-		<!-- {{data}} -->
+		<button v-if="data != null" type="button" v-on:click="toggleTable">Show Data</button>
+		<Charts v-if="showTable" v-bind:data="data"></Charts>
 		<TableDisplay v-if="showTable" v-bind:data="data"></TableDisplay>
 	</div>
 </template>
 
 <script>
 import TableDisplay from "./components/TableDisplay.vue";
+import Charts from "./components/Charts.vue";
 
 export default {
 	name: "app",
 	components: {
-		TableDisplay
+		TableDisplay,
+		Charts
 	},
 	data() {
 		return {
@@ -45,7 +47,7 @@ export default {
 
 			var headers = lines[0].split(",");
 
-			for (var i = 1; i < lines.length; i++) {
+			for (let i = 1; i < lines.length; i++) {
 				var obj = {};
 				var currentline = lines[i].split(",");
 
@@ -56,8 +58,6 @@ export default {
 			}
 			console.log(result);
 			return result; //JavaScript object
-			// return JSON.stringify(result); //JSON
-			// return JSON.parse(result);
 		}
 	}
 };

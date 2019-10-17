@@ -1,7 +1,5 @@
 <template>
 	<div>
-		<chartjs-doughnut v-bind:labels="labels" v-bind:datasets="dataSets" v-bind:option="option"></chartjs-doughnut>
-
 		<h3>
 			filter by suburb
 			<input type="search" v-model="search" />
@@ -44,23 +42,7 @@ export default {
 			displayMax: 50,
 			search: "",
 			currentSort: "SUBURB",
-			currentSortDir: "ASC",
-
-			// Charts
-			labels: ["Apples", "Bananas", "Grapes"],
-			dataSets: [
-				{
-					data: [20, 30, 40],
-					backgroundColor: ["Red", "Yellow", "Purple"]
-				}
-			],
-			option: {
-				title: {
-					display: true,
-					position: "bottom",
-					text: "Fruits"
-				}
-			}
+			currentSortDir: "ASC"
 		};
 	},
 	methods: {
